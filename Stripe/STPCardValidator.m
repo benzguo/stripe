@@ -111,7 +111,6 @@
     if (![self stringIsNumeric:sanitizedNumber]) {
         return STPCardValidationStateInvalid;
     }
-    
     NSArray *brands = [self possibleBrandsForNumber:sanitizedNumber];
     if (brands.count == 0 && validatingCardBrand) {
         return STPCardValidationStateInvalid;
@@ -119,11 +118,14 @@
         return STPCardValidationStateIncomplete;
     } else {
         STPCardBrand brand = (STPCardBrand)[brands.firstObject integerValue];
-        NSInteger desiredLength = [self lengthForCardBrand:brand];
-        if ((NSInteger)sanitizedNumber.length > desiredLength) {
+        NSArray<NSNumber *>* lengths = [self lengthsForCardBrand:brand];
+        NSUInteger maxLength = [[lengths lastObject] integerValue];
+        NSUInteger length = sanitizedNumber.length;
+        if (length > maxLength) {
             return STPCardValidationStateInvalid;
-        } else if ((NSInteger)sanitizedNumber.length == desiredLength) {
-            return [self stringIsValidLuhn:sanitizedNumber] ? STPCardValidationStateValid : STPCardValidationStateInvalid;
+        } else if ([lengths containsObject:[NSNumber numberWithInteger:length]]) {
+            STPCardValidationState elseState = (length == maxLength) ? STPCardValidationStateInvalid : STPCardValidationStateIncomplete;
+            return [self stringIsValidLuhn:sanitizedNumber] ? STPCardValidationStateValid : elseState;
         } else {
             return STPCardValidationStateIncomplete;
         }
@@ -210,14 +212,16 @@
          ];
 }
 
-+ (NSInteger)lengthForCardBrand:(STPCardBrand)brand {
++ (NSArray<NSNumber *>*)lengthsForCardBrand:(STPCardBrand)brand {
     switch (brand) {
         case STPCardBrandAmex:
-            return 15;
+            return @[@15];
         case STPCardBrandDinersClub:
-            return 14;
+            return @[@14];
+        case STPCardBrandVisa:
+            return @[@13, @16];
         default:
-            return 16;
+            return @[@16];
     }
 }
 
