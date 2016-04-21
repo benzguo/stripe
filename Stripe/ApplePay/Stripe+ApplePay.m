@@ -23,7 +23,7 @@
     }
     PKPaymentRequest *paymentRequest = [PKPaymentRequest new];
     [paymentRequest setMerchantIdentifier:merchantIdentifier];
-    [paymentRequest setSupportedNetworks:@[PKPaymentNetworkAmex, PKPaymentNetworkMasterCard, PKPaymentNetworkVisa]];
+    [paymentRequest setSupportedNetworks:@[PKPaymentNetworkAmex, PKPaymentNetworkMasterCard, PKPaymentNetworkVisa, PKPaymentNetworkDiscover]];
     [paymentRequest setMerchantCapabilities:PKMerchantCapability3DS];
     [paymentRequest setCountryCode:@"US"];
     [paymentRequest setCurrencyCode:@"USD"];
