@@ -14,7 +14,9 @@
 @implementation STPAPIClient (ApplePay)
 
 - (void)createTokenWithPayment:(PKPayment *)payment completion:(STPTokenCompletionBlock)completion {
-    [self createTokenWithData:[self.class formEncodedDataForPayment:payment] completion:completion];
+    [self createTokenWithData:[self.class formEncodedDataForPayment:payment]
+                    tokenType:@"apple_pay"
+                   completion:completion];
 }
 
 #pragma clang diagnostic push

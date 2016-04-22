@@ -16,6 +16,6 @@
                   endpoint:(NSString *)endpoint
                   postData:(NSData *)postData
                 serializer:(ResponseType)serializer
-                completion:(void (^)(ResponseType object, NSError *error))completion;
+                completion:(void (^)(ResponseType object, NSURLResponse *response, NSError *))completion;
 
 @end
