@@ -1,5 +1,5 @@
 try:
-  install:
-    pre:
-      - ./prompt_for_keys.sh
-  project: '/Example/Stripe iOS Example (Simple).xcworkspace'
+    install:
+      pre:
+        - ./prompt_for_keys.sh
+    project: '/Example/Stripe iOS Example (Simple).xcworkspace'
