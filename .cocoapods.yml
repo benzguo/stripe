@@ -1,5 +1,5 @@
 try:
     install:
       pre:
-        - ruby prompt_for_keys.rb
+        - ./prompt_for_keys.sh
     project: '/Example/Stripe iOS Example (Simple).xcworkspace'
